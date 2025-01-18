@@ -1,24 +1,24 @@
-Set serveroutput on
+SET SERVEROUTPUT ON;
 DECLARE
-    -- Input variables
+    -- Variabel untuk input pengguna
     v_nama VARCHAR2(100);
     v_jenis_buku VARCHAR2(20);
     v_jumlah_buku NUMBER;
 
-    -- Constants for book prices
+    -- Konstanta untuk harga buku
     c_harga_komik CONSTANT NUMBER := 20000;
     c_harga_novel CONSTANT NUMBER := 35000;
     c_harga_program CONSTANT NUMBER := 50000;
 
-    -- Variables for calculation
+    -- Variabel untuk perhitungan
     v_harga_buku NUMBER;
     v_diskon NUMBER := 0;
     v_total NUMBER;
 BEGIN
-    -- Bagian Input
-    v_nama := 'Masukkan Nama';
-    v_jenis_buku := 'Komik'; -- Ganti sesuai input: 'Komik', 'Novel', 'Program'
-    v_jumlah_buku := 60; -- Ganti sesuai input
+    -- Input dari pengguna
+    v_nama := '&v_nama';
+    v_jenis_buku := '&v_jenis_buku'; -- Masukkan 'Komik', 'Novel', atau 'Program'
+    v_jumlah_buku := &v_jumlah_buku; -- Masukkan jumlah buku
 
     -- Menentukan harga buku berdasarkan jenis buku
     IF v_jenis_buku = 'Komik' THEN
@@ -46,11 +46,17 @@ BEGIN
     -- Menghitung total pembayaran
     v_total := (v_harga_buku * v_jumlah_buku) - (v_harga_buku * v_jumlah_buku * v_diskon);
 
-    -- Bagian Output
-    DBMS_OUTPUT.PUT_LINE('Nama                           : ' || v_nama);
-    DBMS_OUTPUT.PUT_LINE('Jenis buku yang dibeli         : ' || v_jenis_buku);
-    DBMS_OUTPUT.PUT_LINE('Jumlah buku                    : ' || v_jumlah_buku);
-    DBMS_OUTPUT.PUT_LINE('Diskon                         : ' || TO_CHAR(v_diskon * 100) || '%');
-    DBMS_OUTPUT.PUT_LINE('Total pembayaran               : Rp' || TO_CHAR(v_total, '999G999G999'));  
+    -- Menampilkan output dengan format kotak
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('MASUKKAN NAMA ANDA           : ' || v_nama);
+    DBMS_OUTPUT.PUT_LINE('MASUKKAN JENIS BUKU          : ' || v_jenis_buku);
+    DBMS_OUTPUT.PUT_LINE('MASUKKAN JUMLAH PEMBELIAN BUKU : ' || v_jumlah_buku);
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------');
+    DBMS_OUTPUT.PUT_LINE('NAMA                         : ' || v_nama);
+    DBMS_OUTPUT.PUT_LINE('JENIS BUKU YANG DIBELI       : ' || v_jenis_buku);
+    DBMS_OUTPUT.PUT_LINE('JUMLAH BUKU                  : ' || v_jumlah_buku);
+    DBMS_OUTPUT.PUT_LINE('DISKON                       : ' || TO_CHAR(v_diskon * 100) || '%');
+    DBMS_OUTPUT.PUT_LINE('TOTAL PEMBAYARAN             : Rp' || TO_CHAR(v_total, '999G999G999'));
+    DBMS_OUTPUT.PUT_LINE('---------------------------------------------');
 END;
 /
